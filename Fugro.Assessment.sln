@@ -7,7 +7,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fugro.Assessment.Applicatio
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fugro.Assessment.Geometry", "Fugro.Assessment.Geometry\Fugro.Assessment.Geometry.csproj", "{B5704329-5FB2-4AC6-B482-EB381429A6B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fugro.Assessment.Routes", "Fugro.Assessment.Routes\Fugro.Assessment.Routes.csproj", "{76CB4881-0CDE-4BF1-A5AD-80AD8265F498}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fugro.Assessment.Routes", "Fugro.Assessment.Routes\Fugro.Assessment.Routes.csproj", "{76CB4881-0CDE-4BF1-A5AD-80AD8265F498}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fugro.Assessment.Repository", "Fugro.Assessment.Repository\Fugro.Assessment.Repository.csproj", "{E55B8039-0EFD-416A-9994-3F07CA87A630}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{36F5C5FA-C25B-48B5-BB21-EB7BC480FFA5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fugro.Assessment.Geometry.UnitTests", "Tests\Fugro.Assessment.Geometry.UnitTests\Fugro.Assessment.Geometry.UnitTests.csproj", "{EB89E489-0300-4DA8-A0F3-738B4BDC007C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fugro.Assessment.Routes.UnitTests", "Tests\Fugro.Assessment.Routes.UnitTests\Fugro.Assessment.Routes.UnitTests.csproj", "{4DF925B3-E2A5-4F93-B33C-652911F61546}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fugro.Assessment.Repository.UnitTests", "Fugro.Assessment.Repository.UnitTests\Fugro.Assessment.Repository.UnitTests.csproj", "{1052A8E7-F583-4EEA-B844-1919AC104079}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,9 +37,30 @@ Global
 		{76CB4881-0CDE-4BF1-A5AD-80AD8265F498}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76CB4881-0CDE-4BF1-A5AD-80AD8265F498}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76CB4881-0CDE-4BF1-A5AD-80AD8265F498}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E55B8039-0EFD-416A-9994-3F07CA87A630}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E55B8039-0EFD-416A-9994-3F07CA87A630}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E55B8039-0EFD-416A-9994-3F07CA87A630}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E55B8039-0EFD-416A-9994-3F07CA87A630}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB89E489-0300-4DA8-A0F3-738B4BDC007C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB89E489-0300-4DA8-A0F3-738B4BDC007C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB89E489-0300-4DA8-A0F3-738B4BDC007C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB89E489-0300-4DA8-A0F3-738B4BDC007C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DF925B3-E2A5-4F93-B33C-652911F61546}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DF925B3-E2A5-4F93-B33C-652911F61546}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DF925B3-E2A5-4F93-B33C-652911F61546}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DF925B3-E2A5-4F93-B33C-652911F61546}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1052A8E7-F583-4EEA-B844-1919AC104079}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1052A8E7-F583-4EEA-B844-1919AC104079}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1052A8E7-F583-4EEA-B844-1919AC104079}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1052A8E7-F583-4EEA-B844-1919AC104079}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EB89E489-0300-4DA8-A0F3-738B4BDC007C} = {36F5C5FA-C25B-48B5-BB21-EB7BC480FFA5}
+		{4DF925B3-E2A5-4F93-B33C-652911F61546} = {36F5C5FA-C25B-48B5-BB21-EB7BC480FFA5}
+		{1052A8E7-F583-4EEA-B844-1919AC104079} = {36F5C5FA-C25B-48B5-BB21-EB7BC480FFA5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BB4A0696-9A50-472F-9890-834B10CAEBB2}

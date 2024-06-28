@@ -4,18 +4,39 @@ using Fugro.Assessment.Geometry.Sources;
 
 namespace Fugro.Assessment.Geometry.Extensions;
 
-internal sealed class MathService(IPointsSource pointSource) : IMathService
+internal sealed class MathUtility : IMathUtility
 {
-    private readonly IPointsSource _pointSource = pointSource;
-
-    public double CalcHypotenuseSize(Segment adjascentCathetus, Segment oppositeCathetus)
+    public Point CalculateIntersectionPoint(Point A, Point B, Point arbitraryPoint)
     {
-        var adjascentCatethusSize = CalcSegmentSize(adjascentCathetus);
-        var oppositeCatethusSize = CalcSegmentSize(oppositeCathetus);
+        double dx = B.X - A.X;
+        double dy = B.Y - A.Y;
 
-        var hypotenuseSize = Math.Sqrt(Math.Pow(adjascentCatethusSize, 2) + Math.Pow(oppositeCatethusSize, 2));
+        double t = ((arbitraryPoint.X - A.X) * dx + (arbitraryPoint.Y - A.Y) * dy) / (dx * dx + dy * dy);
 
-        return hypotenuseSize;
+        double x = A.X + t * dx;
+        double y = A.Y + t * dy;
+
+        return new(x, y);
+    }
+
+    public double CalculatePerpendicularDistance(double termA, double termB, double termC, Point arbitraryPoint)
+    {
+        double numerator = Math.Abs((termA * arbitraryPoint.X) + (termB * arbitraryPoint.Y) + termC);
+        double denominator = Math.Sqrt((termA * termA) + (termB * termB));
+        return numerator / denominator;
+    }
+
+    public (double termA, double termB, double termC) CalculateLineEquation(Point A, Point B)
+    {
+        double m = (B.Y - A.Y) / (B.X - A.X);
+
+        double b = A.Y - m * A.X;
+
+        double termA = -m;
+        double termB = 1;
+        double termC = -b;
+
+        return (termA, termB, termC);
     }
 
     public double CalcSegmentSize(Segment segment) => CalcSegmentSize(segment.A, segment.B);
@@ -26,8 +47,6 @@ internal sealed class MathService(IPointsSource pointSource) : IMathService
         var deltaY = Math.Pow(B.Y - A.Y, 2);
         return Math.Sqrt(deltaX + deltaY);
     }
-
-    public Task<List<Point>> GetPoints() => _pointSource.GetPoints();
 
     public List<Segment> GetSegments(List<Point> points)
     {

@@ -4,15 +4,25 @@ using Fugro.Assessment.Routes.Dtos;
 
 namespace Fugro.Assessment.Routes.Services;
 
-internal sealed class RouteService(IMathService mathService) : IRouteService
+internal sealed class RouteService : IRouteService
 {
-    private readonly IMathService _mathService = mathService;
+    private readonly IMathUtility _mathService;
 
-    public Task<double> CalculateStationSize(Queue<StationSegment> segments, CancellationToken cancellationToken = default) => 
-        Task.FromResult(Math.Round(segments.Select(segment => _mathService.CalcSegmentSize(segment.A, segment.B)).Sum(), 6));
-    
+    public RouteService(IMathUtility mathService)
+    {
+        _mathService = mathService; 
+    }
+
+    public Task<double> CalculateStationSize(Queue<StationSegment> segments, CancellationToken cancellationToken = default)
+    {
+        var segmentSizes = segments.Select(segment => _mathService.CalcSegmentSize(segment.A, segment.B));
+        var segmentsSum = Math.Round(segmentSizes.Sum(), 6);
+        return Task.FromResult(segmentsSum);
+
+    }
+
     public Task<OffsetData> GetNearestOffsetData(List<StationSegment> segments, Point arbitraryPoint, CancellationToken cancellationToken = default) =>
-        Task.FromResult(GetNearestOffsetData(segments, arbitraryPoint, 0) ?? throw new Exception());
+        Task.FromResult(GetNearestOffsetData(segments, arbitraryPoint, 0));
 
     public Task<Queue<StationSegment>> GetStation(List<StationSegment> segments, OffsetData offsetData, CancellationToken cancellationToken = default)
     {
@@ -51,30 +61,12 @@ internal sealed class RouteService(IMathService mathService) : IRouteService
         var segment = segments[index];
 
         Point nearestPoint;
-        var deltaX = segment.B.X - segment.A.X;
-        var deltaY = segment.B.Y - segment.A.Y;
-        var projectionDeltaX = arbitraryPoint.X - segment.A.X;
-        var projectionDeltaY = arbitraryPoint.Y - segment.A.Y;
+        var (A, B, C) = _mathService.CalculateLineEquation(segment.A, segment.B);
+        var intersectionPoint = _mathService.CalculateIntersectionPoint(segment.A, segment.B, arbitraryPoint);
+        
+        nearestPoint = new Point(intersectionPoint.X, intersectionPoint.Y);
+        var currentDistance = Math.Round(_mathService.CalculatePerpendicularDistance(A, B, C, arbitraryPoint));
 
-        var AB_AB = Math.Pow(deltaX, 2) + Math.Pow(deltaY, 2);
-        var AP_AB = (projectionDeltaX * deltaX) + (projectionDeltaY * deltaY);
-
-        var t = AP_AB / AB_AB;
-
-        if (t < 0)
-        {
-            nearestPoint = segment.A;
-        }
-        else if (t > 1)
-        {
-            nearestPoint = segment.B;
-        }
-        else
-        {
-            nearestPoint = new(segment.A.X + t * deltaX, segment.A.Y + t * deltaY, 0);
-        }
-
-        var currentDistance = Math.Round(_mathService.CalcSegmentSize(nearestPoint, arbitraryPoint), 6);
         var offsetData = new OffsetData(currentDistance, segment, nearestPoint, arbitraryPoint);
 
         var hasMoreItems = ++index < segments.Count;

@@ -1,11 +1,12 @@
-﻿using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Fugro.Assessment.Geometry.Dtos;
 using Fugro.Assessment.Geometry.Extensions;
 using Fugro.Assessment.Geometry.Services;
-using Fugro.Assessment.Geometry.Dtos;
+using Fugro.Assessment.Geometry.Sources;
+using Fugro.Assessment.Routes.Dtos;
 using Fugro.Assessment.Routes.Extensions;
 using Fugro.Assessment.Routes.Services;
-using Fugro.Assessment.Routes.Dtos;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 var builder = Host.CreateDefaultBuilder(args)
     .ConfigureServices(services =>
@@ -19,19 +20,21 @@ app.Start();
 
 var arbitraryPoint = GetPointFromInterface();
 
-var mathService = app.Services.GetRequiredService<IMathService>();
+var mathUtility = app.Services.GetRequiredService<IMathUtility>();
 var routeService = app.Services.GetRequiredService<IRouteService>();
-var points = await mathService.GetPoints();
-var segments = mathService.GetSegments(points);
+var repository = app.Services.GetRequiredService<IPointsRepository>();
+
+var points = await repository.GetPoints();
+
+var geometryPoints = points.Select((point, index) => new Point(point.X, point.Y, index)).ToList();
+var segments = mathUtility.GetSegments(geometryPoints);
 
 var stationSegments = segments.Select(segment => segment.ToStationSegment(StationSegmentType.Segment)).ToList();
 var offsetData = await routeService.GetNearestOffsetData(stationSegments, arbitraryPoint);
 var stationFinalSegments = await routeService.GetStation(stationSegments, offsetData);
 var sumOfStationDistance = await routeService.CalculateStationSize(stationFinalSegments);
 
-PrintStationPath(stationFinalSegments, sumOfStationDistance);
-
-Console.ReadKey();
+PrintResults(stationFinalSegments, sumOfStationDistance);
 
 static Point GetPointFromInterface()
 {
@@ -50,7 +53,7 @@ static Point GetPointFromInterface()
     return new Point(doubleXCoord, doubleYCoord, 0);
 }
 
-static void PrintStationPath(Queue<StationSegment> station, double totalStationDistance)
+static void PrintResults(Queue<StationSegment> station, double totalStationDistance)
 {
     Console.WriteLine(Environment.NewLine);
     Console.WriteLine("===== Results ===================");

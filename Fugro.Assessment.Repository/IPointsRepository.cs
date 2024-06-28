@@ -1,8 +1,8 @@
-﻿using Fugro.Assessment.Geometry.Dtos;
+﻿using Fugro.Assessment.Repository.Dtos;
 
 namespace Fugro.Assessment.Geometry.Sources;
 
-public interface IPointsSource
+public interface IPointsRepository
 {
     public Task<List<Point>> GetPoints(CancellationToken cancellationToken = default);
 }
