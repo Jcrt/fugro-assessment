@@ -19,7 +19,7 @@ namespace Fugro.Assessment.Repository.UnitTests
         {
             var readSequence = new List<string>()
             {
-                "1,2", 
+                "1,2",
                 "3,4"
             };
 
@@ -27,8 +27,8 @@ namespace Fugro.Assessment.Repository.UnitTests
 
             var pointsRepository = _autoMocker.CreateInstance<CsvFilePointsRepository>();
             var pointList = await pointsRepository.GetPoints();
-            
-            Assert.Equal(2, pointList.Count);
+
+            Assert.Equal(2, pointList.Count());
             Assert.Equal(1, pointList[0].X);
             Assert.Equal(2, pointList[0].Y);
             Assert.Equal(3, pointList[1].X);

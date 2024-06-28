@@ -26,6 +26,6 @@ public class FileContentProvider : IFileContentProvider
         using var reader = new StreamReader(fileStream);
 
         while (!string.IsNullOrEmpty(row = reader.ReadLine() ?? string.Empty))
-           yield return row;
+            yield return row;
     }
 }

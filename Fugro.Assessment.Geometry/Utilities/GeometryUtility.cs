@@ -50,7 +50,7 @@ internal sealed class GeometryUtility : IGeometryUtility
     {
         ArgumentNullException.ThrowIfNull(A, nameof(A));
         ArgumentNullException.ThrowIfNull(B, nameof(B));
-            
+
         var deltaX = Math.Pow(B.X - A.X, 2);
         var deltaY = Math.Pow(B.Y - A.Y, 2);
         return Math.Round(Math.Sqrt(deltaX + deltaY), 6);
@@ -58,8 +58,8 @@ internal sealed class GeometryUtility : IGeometryUtility
 
     public List<Segment> GetSegments(List<Point> points)
     {
-        if(points == null || points is { Count: < 2 })
-            throw new ArgumentException($"Minimum number of points: 2. Given number of points {points?.Count ?? 0 }");
+        if (points == null || points is { Count: < 2 })
+            throw new ArgumentException($"Minimum number of points: 2. Given number of points {points?.Count ?? 0}");
 
         var segments = new List<Segment>();
         var index = 1;

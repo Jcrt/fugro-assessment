@@ -43,7 +43,7 @@ public class GeometryUtilityTests
     public void CalculateIntersectionPoint_ShoudReturnCorrectPoint()
     {
         var intersectionPoint = _geometryUtility.CalculateIntersectionPoint(PointList[0], PointList[1], PointList[2]);
-        
+
         Assert.NotNull(intersectionPoint);
         Assert.Equal(0, intersectionPoint.Order);
         Assert.Equal(29, intersectionPoint.X);
@@ -62,7 +62,7 @@ public class GeometryUtilityTests
     public void CalculateLineEquation_ShouldReturnMembers()
     {
         var a = _geometryUtility.CalculateLineEquation(PointList[1], PointList[2]);
-        
+
         Assert.Equal(-0.666667, a.termA);
         Assert.Equal(1, a.termB);
         Assert.Equal(-46.666667, a.termC);

@@ -1,5 +1,5 @@
-﻿using Fugro.Assessment.Geometry.Utilities;
-using Fugro.Assessment.Geometry.Extensions;
+﻿using Fugro.Assessment.Geometry.Extensions;
+using Fugro.Assessment.Geometry.Utilities;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Fugro.Assessment.Geometry.UnitTests.Extensions;

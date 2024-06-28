@@ -1,5 +1,4 @@
 ﻿using Fugro.Assessment.Geometry.Dtos;
-using Fugro.Assessment.Routes.Dtos;
 using Fugro.Assessment.Routes.Extensions;
 using Fugro.Assessment.Routes.Models;
 using Fugro.Assessment.Routes.Services;
@@ -56,7 +55,7 @@ public class RouteServiceTests
         var offsetData = new OffsetData(10, segments[numberOfStationSegments], arbitraryPoint, arbitraryPoint);
 
         var stations = await _routeService.GetStation(segments, offsetData, _cancellationToken);
-        Assert.Equal(segments[numberOfStationSegments].Order, stations.First(x => x.Type ==  StationSegmentType.PartialSegment).Order);
+        Assert.Equal(segments[numberOfStationSegments].Order, stations.First(x => x.Type == StationSegmentType.PartialSegment).Order);
         Assert.Contains(stations, x => x.GetSegmentionName() == "O" && x.Type == StationSegmentType.Offset);
         Assert.Contains(stations, x => x.GetSegmentionName().StartsWith('S') && x.Type == StationSegmentType.PartialSegment);
 
@@ -69,7 +68,7 @@ public class RouteServiceTests
         segments.Enqueue(new(PointList[0], PointList[1], 1, 0));
         segments.Enqueue(new(PointList[1], PointList[2], 2, 0));
         segments.Enqueue(new(PointList[2], PointList[3], 3, 0));
-       
+
         var sum = await _routeService.CalculateStationSize(segments, _cancellationToken);
         Assert.Equal(3218.693999, sum);
     }

@@ -10,7 +10,7 @@ internal sealed class RouteService : IRouteService
 
     public RouteService(IGeometryUtility mathUtility)
     {
-        _mathUtility = mathUtility; 
+        _mathUtility = mathUtility;
     }
 
     public Task<OffsetData> GetNearestOffsetData(List<StationSegment> segments, Point arbitraryPoint, CancellationToken cancellationToken = default) =>
@@ -34,9 +34,9 @@ internal sealed class RouteService : IRouteService
 
         var partialSegmentIndex = Math.Max(0, index - 1);
         var partialLastSegment = new StationSegment(
-            segments[partialSegmentIndex].A, 
+            segments[partialSegmentIndex].A,
             offsetData.PointInsideSegment,
-            ++index, 
+            ++index,
             _mathUtility.CalcSegmentSize(segments[partialSegmentIndex].A, offsetData.PointInsideSegment),
             StationSegmentType.PartialSegment
         );
@@ -44,8 +44,8 @@ internal sealed class RouteService : IRouteService
         routeQueue.Enqueue(partialLastSegment);
 
         var offsetSegment = new StationSegment(
-            offsetData.PointInsideSegment, 
-            offsetData.ArbitraryPoint, 
+            offsetData.PointInsideSegment,
+            offsetData.ArbitraryPoint,
             ++index,
             _mathUtility.CalcSegmentSize(offsetData.PointInsideSegment, offsetData.ArbitraryPoint),
             StationSegmentType.Offset
@@ -63,7 +63,7 @@ internal sealed class RouteService : IRouteService
         Point nearestPoint;
         var (A, B, C) = _mathUtility.CalculateLineEquation(segment.A, segment.B);
         var intersectionPoint = _mathUtility.CalculateIntersectionPoint(segment.A, segment.B, arbitraryPoint);
-        
+
         nearestPoint = new Point(intersectionPoint.X, intersectionPoint.Y);
         var currentDistance = Math.Round(_mathUtility.CalculatePerpendicularDistance(A, B, C, arbitraryPoint));
 

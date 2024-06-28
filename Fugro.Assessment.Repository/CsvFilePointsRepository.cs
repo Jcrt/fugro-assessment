@@ -11,7 +11,7 @@ internal sealed class CsvFilePointsRepository(IFileContentProvider fileContentPr
     {
         var points = new List<Point>();
 
-        foreach(var row in _fileContentProvider.ReadNext())
+        foreach (var row in _fileContentProvider.ReadNext())
         {
             var coords = row.Split(',');
             var x = ParseToDouble(coords[0]);
@@ -23,7 +23,7 @@ internal sealed class CsvFilePointsRepository(IFileContentProvider fileContentPr
                 Y = y
             });
         }
-      
+
         return Task.FromResult(points);
     }
 

@@ -1,13 +1,13 @@
 ﻿using Fugro.Assessment.Geometry.Dtos;
 using Fugro.Assessment.Geometry.Extensions;
 using Fugro.Assessment.Geometry.Utilities;
+using Fugro.Assessment.Repository;
 using Fugro.Assessment.Routes.Extensions;
+using Fugro.Assessment.Routes.Models;
 using Fugro.Assessment.Routes.Services;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Configuration;
-using Fugro.Assessment.Routes.Models;
-using Fugro.Assessment.Repository;
 
 var builder = Host.CreateDefaultBuilder(args)
     .ConfigureAppConfiguration(configuration =>
@@ -44,7 +44,8 @@ try
     var sumOfStationDistance = await routeService.CalculateStationSize(stationFinalSegments);
 
     PrintResults(stationFinalSegments, sumOfStationDistance);
-} catch(Exception ex)
+}
+catch (Exception ex)
 {
     Console.WriteLine("===================================================");
     Console.WriteLine("=> An error occurred during application execution!");
