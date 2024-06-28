@@ -35,7 +35,7 @@ internal sealed class CsvFilePointsRepository(IFileContentProvider fileContentPr
             _logger.LogError(ex, $"An error occurred in {nameof(CsvFilePointsRepository)}");
             throw;
         }
-        
+
     }
 
     private static double ParseToDouble(string coord)

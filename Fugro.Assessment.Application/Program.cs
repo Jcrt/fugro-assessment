@@ -2,6 +2,7 @@
 using Fugro.Assessment.Geometry.Extensions;
 using Fugro.Assessment.Geometry.Utilities;
 using Fugro.Assessment.Repository;
+using Fugro.Assessment.Repository.Extensions;
 using Fugro.Assessment.Routes.Extensions;
 using Fugro.Assessment.Routes.Models;
 using Fugro.Assessment.Routes.Services;
@@ -20,6 +21,7 @@ var builder = Host.CreateDefaultBuilder(args)
     {
         services.AddGeometryDependencies();
         services.AddRouteDependencies();
+        services.AddRepositoryDependencies();
         services.AddLogging();
     });
 
@@ -82,5 +84,8 @@ static void PrintResults(Queue<StationSegment> station, double totalStationDista
         var stationSegment = station.Dequeue();
         Console.WriteLine($"Segment Name: {stationSegment.GetSegmentionName()}, Segment type: {Enum.GetName(stationSegment.Type)}, Segment size: {stationSegment.Size:F6}");
     } while (station.Count > 0);
+
+    Console.WriteLine($"{Environment.NewLine}Press ENTER to close application...");
+    Console.ReadLine();
 
 }

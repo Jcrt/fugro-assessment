@@ -16,7 +16,7 @@ internal sealed class RouteService : IRouteService
         _routeServiceLogger = routeServiceLogger;
     }
 
-    public Task<OffsetData> GetNearestOffsetData(List<StationSegment> segments, Point arbitraryPoint, CancellationToken cancellationToken = default) 
+    public Task<OffsetData> GetNearestOffsetData(List<StationSegment> segments, Point arbitraryPoint, CancellationToken cancellationToken = default)
     {
         try
         {
