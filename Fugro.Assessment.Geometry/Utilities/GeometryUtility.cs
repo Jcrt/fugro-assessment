@@ -1,13 +1,15 @@
 ﻿using Fugro.Assessment.Geometry.Dtos;
-using Fugro.Assessment.Geometry.Services;
-using Fugro.Assessment.Geometry.Sources;
 
-namespace Fugro.Assessment.Geometry.Extensions;
+namespace Fugro.Assessment.Geometry.Utilities;
 
-internal sealed class MathUtility : IMathUtility
+internal sealed class GeometryUtility : IGeometryUtility
 {
     public Point CalculateIntersectionPoint(Point A, Point B, Point arbitraryPoint)
     {
+        ArgumentNullException.ThrowIfNull(A, nameof(A));
+        ArgumentNullException.ThrowIfNull(B, nameof(B));
+        ArgumentNullException.ThrowIfNull(arbitraryPoint, nameof(arbitraryPoint));
+
         double dx = B.X - A.X;
         double dy = B.Y - A.Y;
 
@@ -21,36 +23,42 @@ internal sealed class MathUtility : IMathUtility
 
     public double CalculatePerpendicularDistance(double termA, double termB, double termC, Point arbitraryPoint)
     {
-        double numerator = Math.Abs((termA * arbitraryPoint.X) + (termB * arbitraryPoint.Y) + termC);
-        double denominator = Math.Sqrt((termA * termA) + (termB * termB));
-        return numerator / denominator;
+        ArgumentNullException.ThrowIfNull(arbitraryPoint, nameof(arbitraryPoint));
+
+        double numerator = Math.Round(Math.Abs((termA * arbitraryPoint.X) + (termB * arbitraryPoint.Y) + termC), 6);
+        double denominator = Math.Round(Math.Sqrt((termA * termA) + (termB * termB)), 6);
+        return Math.Round(numerator / denominator, 6);
     }
 
     public (double termA, double termB, double termC) CalculateLineEquation(Point A, Point B)
     {
+        ArgumentNullException.ThrowIfNull(A, nameof(A));
+        ArgumentNullException.ThrowIfNull(B, nameof(B));
+
         double m = (B.Y - A.Y) / (B.X - A.X);
 
         double b = A.Y - m * A.X;
 
-        double termA = -m;
+        double termA = Math.Round(-m, 6);
         double termB = 1;
-        double termC = -b;
+        double termC = Math.Round(-b, 6);
 
         return (termA, termB, termC);
     }
 
-    public double CalcSegmentSize(Segment segment) => CalcSegmentSize(segment.A, segment.B);
-   
     public double CalcSegmentSize(Point A, Point B)
     {
+        ArgumentNullException.ThrowIfNull(A, nameof(A));
+        ArgumentNullException.ThrowIfNull(B, nameof(B));
+            
         var deltaX = Math.Pow(B.X - A.X, 2);
         var deltaY = Math.Pow(B.Y - A.Y, 2);
-        return Math.Sqrt(deltaX + deltaY);
+        return Math.Round(Math.Sqrt(deltaX + deltaY), 6);
     }
 
     public List<Segment> GetSegments(List<Point> points)
     {
-        if(points == null || points is { Count: 0 })
+        if(points == null || points is { Count: < 2 })
             throw new ArgumentException($"Minimum number of points: 2. Given number of points {points?.Count ?? 0 }");
 
         var segments = new List<Segment>();

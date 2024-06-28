@@ -1,4 +1,4 @@
-﻿using Fugro.Assessment.Geometry.Services;
+﻿using Fugro.Assessment.Geometry.Utilities;
 using Fugro.Assessment.Geometry.Sources;
 using Fugro.Assessment.Repository.Providers;
 using Fugro.Assessment.Routes.Extensions;
@@ -19,7 +19,7 @@ public class ServiceCollectionExtensionsTests
         var pointsRepository = serviceProvider.GetRequiredService<IPointsRepository>();
         var fileContentProvider = serviceProvider.GetRequiredService<IFileContentProvider>();
         var routeService = serviceProvider.GetRequiredService<IRouteService>();
-        var mathService = serviceProvider.GetRequiredService<IMathUtility>();
+        var mathService = serviceProvider.GetRequiredService<IGeometryUtility>();
 
         Assert.NotNull(pointsRepository);
         Assert.NotNull(fileContentProvider);

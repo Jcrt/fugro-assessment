@@ -1,14 +1,14 @@
 ﻿using Fugro.Assessment.Geometry.Dtos;
-using Fugro.Assessment.Geometry.Services;
+using Fugro.Assessment.Geometry.Utilities;
 using Fugro.Assessment.Routes.Dtos;
 
 namespace Fugro.Assessment.Routes.Services;
 
 internal sealed class RouteService : IRouteService
 {
-    private readonly IMathUtility _mathUtility;
+    private readonly IGeometryUtility _mathUtility;
 
-    public RouteService(IMathUtility mathUtility)
+    public RouteService(IGeometryUtility mathUtility)
     {
         _mathUtility = mathUtility; 
     }

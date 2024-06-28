@@ -1,6 +1,6 @@
 ﻿using Fugro.Assessment.Geometry.Dtos;
 using Fugro.Assessment.Geometry.Extensions;
-using Fugro.Assessment.Geometry.Services;
+using Fugro.Assessment.Geometry.Utilities;
 using Fugro.Assessment.Geometry.Sources;
 using Fugro.Assessment.Routes.Dtos;
 using Fugro.Assessment.Routes.Extensions;
@@ -20,7 +20,7 @@ app.Start();
 
 var arbitraryPoint = GetPointFromInterface();
 
-var mathUtility = app.Services.GetRequiredService<IMathUtility>();
+var mathUtility = app.Services.GetRequiredService<IGeometryUtility>();
 var routeService = app.Services.GetRequiredService<IRouteService>();
 var repository = app.Services.GetRequiredService<IPointsRepository>();
 

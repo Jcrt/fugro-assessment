@@ -1,4 +1,4 @@
-﻿using Fugro.Assessment.Geometry.Services;
+﻿using Fugro.Assessment.Geometry.Utilities;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
@@ -8,7 +8,7 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddGeometryDependencies(this IServiceCollection services)
     {
-        services.TryAddSingleton<IMathUtility, MathUtility>();
+        services.TryAddSingleton<IGeometryUtility, GeometryUtility>();
         return services;
     }
 }
