@@ -5,6 +5,8 @@ VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fugro.Assessment", "Fugro.Assessment\Fugro.Assessment.csproj", "{86D92925-9E04-4178-853F-B988E32E40AE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fugro.Assessment.Math", "Fugro.Assessment.DataSource\Fugro.Assessment.Math.csproj", "{B5704329-5FB2-4AC6-B482-EB381429A6B5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{86D92925-9E04-4178-853F-B988E32E40AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86D92925-9E04-4178-853F-B988E32E40AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86D92925-9E04-4178-853F-B988E32E40AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5704329-5FB2-4AC6-B482-EB381429A6B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5704329-5FB2-4AC6-B482-EB381429A6B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5704329-5FB2-4AC6-B482-EB381429A6B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5704329-5FB2-4AC6-B482-EB381429A6B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
