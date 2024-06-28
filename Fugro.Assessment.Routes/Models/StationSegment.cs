@@ -6,7 +6,13 @@ public record StationSegment : Segment
 {
     public StationSegmentType Type { get; init; }
 
-    public StationSegment(Point A, Point B, int Order, double Size, StationSegmentType type) : base(A, B, Order, Size)
+    public StationSegment(
+        Point A, 
+        Point B, 
+        int Order, 
+        double Size, 
+        StationSegmentType type = StationSegmentType.Segment
+    ) : base(A, B, Order, Size)
     {
         Type = type;
     }

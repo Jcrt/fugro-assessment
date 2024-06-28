@@ -8,7 +8,7 @@ namespace Fugro.Assessment.Repository.UnitTests.Extensions;
 public class ServiceCollectionExtensionsTests
 {
     [Fact]
-    public void AddRepositoryDependencies_ShouldAddServices()
+    public void AddRepositoryDependencies_ShouldAddRightServices()
     {
         var serviceCollection = new ServiceCollection();
         serviceCollection.AddRepositoryDependencies();

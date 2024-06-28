@@ -12,8 +12,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../Fugro.Assessment.Geometry/Fugro.Assessment.Geometry.csproj" />
+    <ProjectReference Include="..\Fugro.Assessment.Geometry\Fugro.Assessment.Geometry.csproj" />
     <ProjectReference Include="..\Fugro.Assessment.Repository\Fugro.Assessment.Repository.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>$(MSBuildProjectName).UnitTests</_Parameter1>
+    </AssemblyAttribute>
   </ItemGroup>
 
 </Project>

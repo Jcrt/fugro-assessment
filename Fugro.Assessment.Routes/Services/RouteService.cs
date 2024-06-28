@@ -6,23 +6,23 @@ namespace Fugro.Assessment.Routes.Services;
 
 internal sealed class RouteService : IRouteService
 {
-    private readonly IMathUtility _mathService;
+    private readonly IMathUtility _mathUtility;
 
-    public RouteService(IMathUtility mathService)
+    public RouteService(IMathUtility mathUtility)
     {
-        _mathService = mathService; 
-    }
-
-    public Task<double> CalculateStationSize(Queue<StationSegment> segments, CancellationToken cancellationToken = default)
-    {
-        var segmentSizes = segments.Select(segment => _mathService.CalcSegmentSize(segment.A, segment.B));
-        var segmentsSum = Math.Round(segmentSizes.Sum(), 6);
-        return Task.FromResult(segmentsSum);
-
+        _mathUtility = mathUtility; 
     }
 
     public Task<OffsetData> GetNearestOffsetData(List<StationSegment> segments, Point arbitraryPoint, CancellationToken cancellationToken = default) =>
         Task.FromResult(GetNearestOffsetData(segments, arbitraryPoint, 0));
+
+    public Task<double> CalculateStationSize(Queue<StationSegment> segments, CancellationToken cancellationToken = default)
+    {
+        var segmentSizes = segments.Select(segment => _mathUtility.CalcSegmentSize(segment.A, segment.B));
+        var segmentsSum = Math.Round(segmentSizes.Sum(), 6);
+        return Task.FromResult(segmentsSum);
+
+    }
 
     public Task<Queue<StationSegment>> GetStation(List<StationSegment> segments, OffsetData offsetData, CancellationToken cancellationToken = default)
     {
@@ -37,7 +37,7 @@ internal sealed class RouteService : IRouteService
             segments[partialSegmentIndex].A, 
             offsetData.PointInsideSegment,
             ++index, 
-            _mathService.CalcSegmentSize(segments[partialSegmentIndex].A, offsetData.PointInsideSegment),
+            _mathUtility.CalcSegmentSize(segments[partialSegmentIndex].A, offsetData.PointInsideSegment),
             StationSegmentType.PartialSegment
         );
 
@@ -46,8 +46,8 @@ internal sealed class RouteService : IRouteService
         var offsetSegment = new StationSegment(
             offsetData.PointInsideSegment, 
             offsetData.ArbitraryPoint, 
-            index,
-            _mathService.CalcSegmentSize(offsetData.PointInsideSegment, offsetData.ArbitraryPoint),
+            ++index,
+            _mathUtility.CalcSegmentSize(offsetData.PointInsideSegment, offsetData.ArbitraryPoint),
             StationSegmentType.Offset
         );
 
@@ -61,11 +61,11 @@ internal sealed class RouteService : IRouteService
         var segment = segments[index];
 
         Point nearestPoint;
-        var (A, B, C) = _mathService.CalculateLineEquation(segment.A, segment.B);
-        var intersectionPoint = _mathService.CalculateIntersectionPoint(segment.A, segment.B, arbitraryPoint);
+        var (A, B, C) = _mathUtility.CalculateLineEquation(segment.A, segment.B);
+        var intersectionPoint = _mathUtility.CalculateIntersectionPoint(segment.A, segment.B, arbitraryPoint);
         
         nearestPoint = new Point(intersectionPoint.X, intersectionPoint.Y);
-        var currentDistance = Math.Round(_mathService.CalculatePerpendicularDistance(A, B, C, arbitraryPoint));
+        var currentDistance = Math.Round(_mathUtility.CalculatePerpendicularDistance(A, B, C, arbitraryPoint));
 
         var offsetData = new OffsetData(currentDistance, segment, nearestPoint, arbitraryPoint);
 
