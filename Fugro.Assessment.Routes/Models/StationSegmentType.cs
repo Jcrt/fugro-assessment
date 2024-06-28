@@ -1,8 +1,8 @@
-﻿namespace Fugro.Assessment.Routes.Dtos;
+﻿namespace Fugro.Assessment.Routes.Models;
 
 public enum StationSegmentType
 {
-    Segment, 
+    Segment,
     PartialSegment,
     Offset
 }

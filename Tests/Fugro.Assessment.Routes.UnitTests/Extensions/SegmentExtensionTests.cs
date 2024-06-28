@@ -1,6 +1,6 @@
 ﻿using Fugro.Assessment.Geometry.Dtos;
-using Fugro.Assessment.Routes.Dtos;
 using Fugro.Assessment.Routes.Extensions;
+using Fugro.Assessment.Routes.Models;
 
 namespace Fugro.Assessment.Routes.UnitTests.Extensions;
 

@@ -1,5 +1,4 @@
-﻿using Fugro.Assessment.Geometry.Sources;
-using Fugro.Assessment.Repository.Dtos;
+﻿using Fugro.Assessment.Repository.Dtos;
 using Fugro.Assessment.Repository.Providers;
 
 namespace Fugro.Assessment.Repository;

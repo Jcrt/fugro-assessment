@@ -1,6 +1,6 @@
 ﻿using Fugro.Assessment.Repository.Dtos;
 
-namespace Fugro.Assessment.Geometry.Sources;
+namespace Fugro.Assessment.Repository;
 
 public interface IPointsRepository
 {

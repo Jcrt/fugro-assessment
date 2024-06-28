@@ -1,6 +1,7 @@
 ﻿using Fugro.Assessment.Geometry.Dtos;
 using Fugro.Assessment.Routes.Dtos;
 using Fugro.Assessment.Routes.Extensions;
+using Fugro.Assessment.Routes.Models;
 using Fugro.Assessment.Routes.Services;
 using Microsoft.Extensions.DependencyInjection;
 

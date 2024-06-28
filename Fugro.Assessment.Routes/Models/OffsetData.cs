@@ -1,10 +1,10 @@
 ﻿using Fugro.Assessment.Geometry.Dtos;
 
-namespace Fugro.Assessment.Routes.Dtos;
+namespace Fugro.Assessment.Routes.Models;
 
 public record OffsetData(
     double Distance,
-    StationSegment Segment, 
+    StationSegment Segment,
     Point PointInsideSegment,
     Point ArbitraryPoint
 )

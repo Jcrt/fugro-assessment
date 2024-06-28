@@ -1,5 +1,4 @@
-﻿using Fugro.Assessment.Geometry.Sources;
-using Fugro.Assessment.Repository.Providers;
+﻿using Fugro.Assessment.Repository.Providers;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
