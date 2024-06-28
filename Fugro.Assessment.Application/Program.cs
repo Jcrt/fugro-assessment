@@ -7,9 +7,16 @@ using Fugro.Assessment.Routes.Extensions;
 using Fugro.Assessment.Routes.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Configuration;
 
 var builder = Host.CreateDefaultBuilder(args)
-    .ConfigureServices(services =>
+    .ConfigureAppConfiguration(configuration =>
+    {
+        configuration.SetBasePath(AppContext.BaseDirectory)
+            .AddJsonFile("appsettings.json", optional: false, true)
+            .Build();
+    })
+    .ConfigureServices((services) =>
     {
         services.AddGeometryDependencies();
         services.AddRouteDependencies();
@@ -18,23 +25,31 @@ var builder = Host.CreateDefaultBuilder(args)
 var app = builder.Build();
 app.Start();
 
-var arbitraryPoint = GetPointFromInterface();
+try
+{
+    var arbitraryPoint = GetPointFromInterface();
 
-var mathUtility = app.Services.GetRequiredService<IGeometryUtility>();
-var routeService = app.Services.GetRequiredService<IRouteService>();
-var repository = app.Services.GetRequiredService<IPointsRepository>();
+    var mathUtility = app.Services.GetRequiredService<IGeometryUtility>();
+    var routeService = app.Services.GetRequiredService<IRouteService>();
+    var repository = app.Services.GetRequiredService<IPointsRepository>();
 
-var points = await repository.GetPoints();
+    var points = await repository.GetPoints();
 
-var geometryPoints = points.Select((point, index) => new Point(point.X, point.Y, index)).ToList();
-var segments = mathUtility.GetSegments(geometryPoints);
+    var geometryPoints = points.Select((point, index) => new Point(point.X, point.Y, index)).ToList();
+    var segments = mathUtility.GetSegments(geometryPoints);
 
-var stationSegments = segments.Select(segment => segment.ToStationSegment(StationSegmentType.Segment)).ToList();
-var offsetData = await routeService.GetNearestOffsetData(stationSegments, arbitraryPoint);
-var stationFinalSegments = await routeService.GetStation(stationSegments, offsetData);
-var sumOfStationDistance = await routeService.CalculateStationSize(stationFinalSegments);
+    var stationSegments = segments.Select(segment => segment.ToStationSegment(StationSegmentType.Segment)).ToList();
+    var offsetData = await routeService.GetNearestOffsetData(stationSegments, arbitraryPoint);
+    var stationFinalSegments = await routeService.GetStation(stationSegments, offsetData);
+    var sumOfStationDistance = await routeService.CalculateStationSize(stationFinalSegments);
 
-PrintResults(stationFinalSegments, sumOfStationDistance);
+    PrintResults(stationFinalSegments, sumOfStationDistance);
+} catch(Exception ex)
+{
+    Console.WriteLine("===================================================");
+    Console.WriteLine("=> An error occurred during application execution!");
+    Console.WriteLine($"=> {ex.Message}");
+}
 
 static Point GetPointFromInterface()
 {

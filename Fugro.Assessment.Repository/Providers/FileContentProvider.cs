@@ -1,17 +1,22 @@
-﻿namespace Fugro.Assessment.Repository.Providers;
+﻿using Microsoft.Extensions.Configuration;
+
+namespace Fugro.Assessment.Repository.Providers;
 
 public class FileContentProvider : IFileContentProvider
 {
-    //TODO: Add config provider to inform file path
-    const string _fileName = "polyline sample.csv";
-    readonly string _filePath;
+    private const string _defaultFileName = "polyline sample.csv";
+    private readonly string _filePath;
 
-    public FileContentProvider()
+    public FileContentProvider(IConfiguration configuration)
     {
-        _filePath = Path.Combine(AppContext.BaseDirectory, "assets", _fileName);
+        var configPath = configuration.GetRequiredSection("FileContent:FullPath").Value;
+
+        _filePath = (string.IsNullOrWhiteSpace(configPath))
+            ? Path.Combine(AppContext.BaseDirectory, "assets", _defaultFileName)
+            : configPath;
 
         if (!File.Exists(_filePath))
-            throw new FileNotFoundException(nameof(_filePath));
+            throw new FileNotFoundException($"The given file doesn't exist: {_filePath}");
     }
 
     public IEnumerable<string> ReadNext()
