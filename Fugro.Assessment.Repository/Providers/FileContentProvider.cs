@@ -9,7 +9,7 @@ public class FileContentProvider : IFileContentProvider
 
     public FileContentProvider(IConfiguration configuration)
     {
-        var configPath = configuration.GetRequiredSection("FileContent:FullPath").Value;
+        var configPath = configuration.GetSection("FileContent:FullPath")?.Value;
 
         _filePath = (string.IsNullOrWhiteSpace(configPath))
             ? Path.Combine(AppContext.BaseDirectory, "assets", _defaultFileName)

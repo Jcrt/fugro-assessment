@@ -20,6 +20,7 @@ var builder = Host.CreateDefaultBuilder(args)
     {
         services.AddGeometryDependencies();
         services.AddRouteDependencies();
+        services.AddLogging();
     });
 
 var app = builder.Build();

@@ -3,18 +3,22 @@ using Fugro.Assessment.Routes.Extensions;
 using Fugro.Assessment.Routes.Models;
 using Fugro.Assessment.Routes.Services;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Moq;
 
 namespace Fugro.Assessment.Routes.UnitTests.Services;
 
 public class RouteServiceTests
 {
     private readonly IRouteService _routeService;
+    private readonly Mock<ILogger<RouteService>> _loggerMock = new();
     private readonly CancellationToken _cancellationToken = CancellationToken.None;
 
     public RouteServiceTests()
     {
         var serviceCollection = new ServiceCollection();
         serviceCollection.AddRouteDependencies();
+        serviceCollection.AddSingleton(_loggerMock.Object);
         var serviceProvider = serviceCollection.BuildServiceProvider();
         _routeService = serviceProvider.GetRequiredService<IRouteService>();
     }

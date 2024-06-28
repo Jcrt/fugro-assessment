@@ -1,4 +1,5 @@
 using Fugro.Assessment.Repository.Providers;
+using Microsoft.Extensions.Logging;
 using Moq;
 using Moq.AutoMock;
 
@@ -8,10 +9,12 @@ namespace Fugro.Assessment.Repository.UnitTests
     {
         private readonly AutoMocker _autoMocker = new();
         private readonly Mock<IFileContentProvider> _fileContentProvider;
+        private readonly Mock<ILogger<CsvFilePointsRepository>> _logger;
 
         public CsvFilePointsRepositoryTests()
         {
             _fileContentProvider = _autoMocker.GetMock<IFileContentProvider>();
+            _logger = _autoMocker.GetMock<ILogger<CsvFilePointsRepository>>();
         }
 
         [Fact]
