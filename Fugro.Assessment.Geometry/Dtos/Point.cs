@@ -1,4 +1,4 @@
-﻿namespace Fugro.Assessment.Math.Dtos;
+﻿namespace Fugro.Assessment.Geometry.Dtos;
 
 public record Point(double X, double Y, int Order)
 {

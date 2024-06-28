@@ -1,6 +1,6 @@
-﻿using Fugro.Assessment.Math.Dtos;
+﻿using Fugro.Assessment.Geometry.Dtos;
 
-namespace Fugro.Assessment.Math;
+namespace Fugro.Assessment.Geometry.Sources;
 
 internal sealed class CsvFilePointsSource : IPointsSource
 {
@@ -27,8 +27,8 @@ internal sealed class CsvFilePointsSource : IPointsSource
         while (!string.IsNullOrEmpty(row = await reader.ReadLineAsync(cancellationToken) ?? string.Empty))
         {
             var coords = row.Split(',');
-            var x = ParseToFloat(coords[0]);
-            var y = ParseToFloat(coords[1]);
+            var x = ParseToDouble(coords[0]);
+            var y = ParseToDouble(coords[1]);
 
             points.Add(new(x, y, points.Count + 1));
         }
@@ -36,11 +36,11 @@ internal sealed class CsvFilePointsSource : IPointsSource
         return points;
     }
 
-    private static double ParseToFloat(string coord)
+    private static double ParseToDouble(string coord)
     {
         if (!double.TryParse(coord, out double doubleCoord))
             throw new InvalidCastException($"The value '{coord}' couldn't be parsed to double. Check your data source");
-        
+
         return doubleCoord;
     }
 }

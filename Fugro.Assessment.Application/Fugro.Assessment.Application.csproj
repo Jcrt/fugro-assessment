@@ -13,7 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Fugro.Assessment.DataSource\Fugro.Assessment.Math.csproj" />
+    <ProjectReference Include="..\Fugro.Assessment.Geometry\Fugro.Assessment.Geometry.csproj" />
+    <ProjectReference Include="..\Fugro.Assessment.Routes\Fugro.Assessment.Routes.csproj" />
   </ItemGroup>
 
 </Project>
