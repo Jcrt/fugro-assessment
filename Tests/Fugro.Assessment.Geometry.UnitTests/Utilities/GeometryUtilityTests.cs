@@ -29,7 +29,7 @@ public class GeometryUtilityTests
     public void CalcSegmentSize_ShouldCalculateCorrectly()
     {
         var segmentSize = _geometryUtility.CalcSegmentSize(PointList[0], PointList[1]);
-        Assert.Equal(31.622777, segmentSize);
+        Assert.Equal(1, segmentSize);
     }
 
     [Fact]
@@ -42,30 +42,38 @@ public class GeometryUtilityTests
     [Fact]
     public void CalculateIntersectionPoint_ShoudReturnCorrectPoint()
     {
-        var intersectionPoint = _geometryUtility.CalculateIntersectionPoint(PointList[0], PointList[1], PointList[2]);
+        var intersectionPoint = _geometryUtility.CalculateIntersectionPointIfExists(PointList[0], PointList[1], PointList[2]);
 
         Assert.NotNull(intersectionPoint);
         Assert.Equal(0, intersectionPoint.Order);
-        Assert.Equal(29, intersectionPoint.X);
-        Assert.Equal(87, intersectionPoint.Y);
+        Assert.Equal(0, intersectionPoint.X);
+        Assert.Equal(1, intersectionPoint.Y);
+    }
+
+    [Fact]
+    public void CalculateIntersectionPoint_ShouldReturnNull()
+    {
+        var intersectionPoint = _geometryUtility.CalculateIntersectionPointIfExists(PointList[0], PointList[1], new(5, 10));
+
+        Assert.Null(intersectionPoint);
     }
 
     [Fact]
     public void CalculateIntersectionPoint_ShouldThrowIfArgumentsAreNull()
     {
-        Assert.Throws<ArgumentNullException>(() => _geometryUtility.CalculateIntersectionPoint(null, PointList[1], PointList[2]));
-        Assert.Throws<ArgumentNullException>(() => _geometryUtility.CalculateIntersectionPoint(PointList[0], null, PointList[2]));
-        Assert.Throws<ArgumentNullException>(() => _geometryUtility.CalculateIntersectionPoint(PointList[0], PointList[1], null));
+        Assert.Throws<ArgumentNullException>(() => _geometryUtility.CalculateIntersectionPointIfExists(null, PointList[1], PointList[2]));
+        Assert.Throws<ArgumentNullException>(() => _geometryUtility.CalculateIntersectionPointIfExists(PointList[0], null, PointList[2]));
+        Assert.Throws<ArgumentNullException>(() => _geometryUtility.CalculateIntersectionPointIfExists(PointList[0], PointList[1], null));
     }
 
     [Fact]
     public void CalculateLineEquation_ShouldReturnMembers()
     {
-        var a = _geometryUtility.CalculateLineEquation(PointList[1], PointList[2]);
+        var lineEquation = _geometryUtility.CalculateLineEquation(PointList[1], PointList[2]);
 
-        Assert.Equal(-0.666667, a.termA);
-        Assert.Equal(1, a.termB);
-        Assert.Equal(-46.666667, a.termC);
+        Assert.Equal(0, lineEquation.termA);
+        Assert.Equal(1, lineEquation.termB);
+        Assert.Equal(-1, lineEquation.termC);
     }
 
     [Fact]
@@ -78,12 +86,12 @@ public class GeometryUtilityTests
     [Fact]
     public void CalculatePerpendicularDistance_ShouldCalculateCorrectly()
     {
-        var termA = -0.666667;
+        var termA = -0;
         var termB = 1;
-        var termC = -46.666667;
+        var termC = -1;
 
         var perperndicularDistance = _geometryUtility.CalculatePerpendicularDistance(termA, termB, termC, PointList[2]);
-        Assert.Equal(1.4E-05, perperndicularDistance);
+        Assert.Equal(0, perperndicularDistance);
     }
 
     [Fact]
@@ -94,8 +102,8 @@ public class GeometryUtilityTests
 
     private static List<Point> PointList => new()
     {
-        new Point(10, 30),
-        new Point(20, 60),
-        new Point(50, 80)
+        new Point(0, 0),
+        new Point(0, 1),
+        new Point(1, 1)
     };
 }

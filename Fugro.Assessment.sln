@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fugro.Assessment.Application", "Fugro.Assessment.Application\Fugro.Assessment.Application.csproj", "{86D92925-9E04-4178-853F-B988E32E40AE}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fugro.Assessment.Geometry", "Fugro.Assessment.Geometry\Fugro.Assessment.Geometry.csproj", "{B5704329-5FB2-4AC6-B482-EB381429A6B5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fugro.Assessment.Routes", "Fugro.Assessment.Routes\Fugro.Assessment.Routes.csproj", "{76CB4881-0CDE-4BF1-A5AD-80AD8265F498}"
@@ -19,16 +17,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fugro.Assessment.Routes.Uni
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fugro.Assessment.Repository.UnitTests", "Fugro.Assessment.Repository.UnitTests\Fugro.Assessment.Repository.UnitTests.csproj", "{1052A8E7-F583-4EEA-B844-1919AC104079}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fugro.Assessment.Application", "Fugro.Assessment.Application\Fugro.Assessment.Application.csproj", "{511B7742-CEBD-45D9-82B6-C02F83988291}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{86D92925-9E04-4178-853F-B988E32E40AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{86D92925-9E04-4178-853F-B988E32E40AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{86D92925-9E04-4178-853F-B988E32E40AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{86D92925-9E04-4178-853F-B988E32E40AE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B5704329-5FB2-4AC6-B482-EB381429A6B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B5704329-5FB2-4AC6-B482-EB381429A6B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5704329-5FB2-4AC6-B482-EB381429A6B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -50,6 +46,10 @@ Global
 		{1052A8E7-F583-4EEA-B844-1919AC104079}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1052A8E7-F583-4EEA-B844-1919AC104079}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1052A8E7-F583-4EEA-B844-1919AC104079}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{511B7742-CEBD-45D9-82B6-C02F83988291}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{511B7742-CEBD-45D9-82B6-C02F83988291}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{511B7742-CEBD-45D9-82B6-C02F83988291}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{511B7742-CEBD-45D9-82B6-C02F83988291}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

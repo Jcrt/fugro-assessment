@@ -1,7 +1,5 @@
 ﻿using Fugro.Assessment.Geometry.Dtos;
 using Fugro.Assessment.Geometry.Extensions;
-using Fugro.Assessment.Geometry.Utilities;
-using Fugro.Assessment.Repository;
 using Fugro.Assessment.Repository.Extensions;
 using Fugro.Assessment.Routes.Extensions;
 using Fugro.Assessment.Routes.Models;
@@ -32,21 +30,10 @@ try
 {
     var arbitraryPoint = GetPointFromInterface();
 
-    var mathUtility = app.Services.GetRequiredService<IGeometryUtility>();
     var routeService = app.Services.GetRequiredService<IRouteService>();
-    var repository = app.Services.GetRequiredService<IPointsRepository>();
+    var result = await routeService.CalculateAsync(arbitraryPoint);
 
-    var points = await repository.GetPoints();
-
-    var geometryPoints = points.Select((point, index) => new Point(point.X, point.Y, index)).ToList();
-    var segments = mathUtility.GetSegments(geometryPoints);
-
-    var stationSegments = segments.Select(segment => segment.ToStationSegment(StationSegmentType.Segment)).ToList();
-    var offsetData = await routeService.GetNearestOffsetData(stationSegments, arbitraryPoint);
-    var stationFinalSegments = await routeService.GetStation(stationSegments, offsetData);
-    var sumOfStationDistance = await routeService.CalculateStationSize(stationFinalSegments);
-
-    PrintResults(stationFinalSegments, sumOfStationDistance);
+    PrintResults(result);
 }
 catch (Exception ex)
 {
@@ -72,20 +59,27 @@ static Point GetPointFromInterface()
     return new Point(doubleXCoord, doubleYCoord, 0);
 }
 
-static void PrintResults(Queue<StationSegment> station, double totalStationDistance)
+static void PrintResults(Result result)
 {
     Console.WriteLine(Environment.NewLine);
     Console.WriteLine("===== Results ===================");
-    Console.WriteLine($"The total station value is: {totalStationDistance:F6}");
-    Console.WriteLine("The calculated station segments was: ");
 
-    do
+    if (result.IsExists)
     {
-        var stationSegment = station.Dequeue();
-        Console.WriteLine($"Segment Name: {stationSegment.GetSegmentionName()}, Segment type: {Enum.GetName(stationSegment.Type)}, Segment size: {stationSegment.Size:F6}");
-    } while (station.Count > 0);
+        Console.WriteLine($"The total station value is: {result.TotalDistance:F6}");
+        Console.WriteLine("The calculated station segments was: ");
 
-    Console.WriteLine($"{Environment.NewLine}Press ENTER to close application...");
-    Console.ReadLine();
+        do
+        {
+            var stationSegment = result.Segments.Dequeue();
+            Console.WriteLine($"Segment Name: {stationSegment.GetSegmentionName()}, Segment type: {Enum.GetName(stationSegment.Type)}, Segment size: {stationSegment.Size:F6}");
+        } while (result.Segments.Count > 0);
 
+        Console.WriteLine($"{Environment.NewLine}Press ENTER to close application...");
+        Console.ReadLine();
+    }
+    else
+    {
+        Console.WriteLine($"Doesn't exist any segment that attend the perpendicular requirement 😿");
+    }
 }
