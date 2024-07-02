@@ -10,7 +10,6 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddRouteDependencies(this IServiceCollection services)
     {
         services.AddGeometryDependencies();
-        services.AddGeometryDependencies();
         services.TryAddSingleton<IRouteService, RouteService>();
         return services;
     }
