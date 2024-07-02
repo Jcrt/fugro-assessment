@@ -4,7 +4,7 @@ namespace Fugro.Assessment.Geometry.Utilities;
 
 internal sealed class GeometryUtility : IGeometryUtility
 {
-    public Point CalculateIntersectionPoint(Point A, Point B, Point arbitraryPoint)
+    public Point? CalculateIntersectionPointIfExists(Point A, Point B, Point arbitraryPoint)
     {
         ArgumentNullException.ThrowIfNull(A, nameof(A));
         ArgumentNullException.ThrowIfNull(B, nameof(B));
@@ -15,10 +15,15 @@ internal sealed class GeometryUtility : IGeometryUtility
 
         double t = ((arbitraryPoint.X - A.X) * dx + (arbitraryPoint.Y - A.Y) * dy) / (dx * dx + dy * dy);
 
-        double x = A.X + t * dx;
-        double y = A.Y + t * dy;
+        if (t >= 0 && t <= 1)
+        {
+            double x = A.X + t * dx;
+            double y = A.Y + t * dy;
 
-        return new(x, y);
+            return new(x, y);
+        }
+
+        return null;
     }
 
     public double CalculatePerpendicularDistance(double termA, double termB, double termC, Point arbitraryPoint)
@@ -34,6 +39,9 @@ internal sealed class GeometryUtility : IGeometryUtility
     {
         ArgumentNullException.ThrowIfNull(A, nameof(A));
         ArgumentNullException.ThrowIfNull(B, nameof(B));
+
+        if (B.X == A.X)
+            return (1, 0, -A.X);
 
         double m = (B.Y - A.Y) / (B.X - A.X);
 
